@@ -1,23 +1,28 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-struct CD{
+
+#define MAX_CDS 100
+
+struct CD {
     int id;
     char name[50];
     float duration;
     char content[100];
     bool status;
 };
-void printCDList(struct CD cdList[], int size){
+
+void printCDList(struct CD cdList[], int size) {
     printf("Danh sach CD:\n");
     for (int i = 0; i < size; ++i) {
         printf("ID: %d, Ten: %s, Thoi gian: %.2f, Noi dung: %s, Trang thai: %s\n",
                cdList[i].id, cdList[i].name, cdList[i].duration,
-               cdList[i].content, cdList[i].status  ? "Da cho thue" : "Chua cho thue");
+               cdList[i].content, cdList[i].status ? "Da cho thue" : "Chua cho thue");
     }
     printf("\n");
 }
-void addNewCD(struct CD cdList[], int *size){
+
+void addNewCD(struct CD cdList[], int *size) {
     struct CD newCD;
     printf("Nhap ten CD: ");
     getchar();
@@ -34,20 +39,21 @@ void addNewCD(struct CD cdList[], int *size){
     cdList[(*size)++] = newCD;
     printf("Them CD thanh cong.\n");
 }
-void updateCD(struct CD cdList[], int size){
+
+void updateCD(struct CD cdList[], int size) {
     char searchName[50];
     printf("Nhap ten CD can chinh sua: ");
     getchar();
     fgets(searchName, sizeof(searchName), stdin);
     strtok(searchName, "\n");
     int index = -1;
-    for (int i = 0; i < size; ++i){
-        if (strcmp(cdList[i].name, searchName) == 0){
+    for (int i = 0; i < size; ++i) {
+        if (strcmp(cdList[i].name, searchName) == 0) {
             index = i;
             break;
         }
     }
-    if (index != -1){
+    if (index != -1) {
         printf("Nhap thong tin moi cho CD:\n");
         printf("Nhap ten CD: ");
         getchar();
@@ -64,21 +70,22 @@ void updateCD(struct CD cdList[], int size){
         printf("Khong tim thay CD.\n");
     }
 }
-void deleteCD(struct CD cdList[], int *size){
+
+void deleteCD(struct CD cdList[], int *size) {
     char deleteName[50];
     printf("Nhap ten CD can xoa: ");
     getchar();
     fgets(deleteName, sizeof(deleteName), stdin);
     strtok(deleteName, "\n");
     int index = -1;
-    for (int i = 0; i < *size; ++i){
-        if (strcmp(cdList[i].name, deleteName) == 0){
+    for (int i = 0; i < *size; ++i) {
+        if (strcmp(cdList[i].name, deleteName) == 0) {
             index = i;
             break;
         }
     }
     if (index != -1) {
-        for (int i = index; i < *size - 1; ++i){
+        for (int i = index; i < *size - 1; ++i) {
             cdList[i] = cdList[i + 1];
         }
         (*size)--;
@@ -87,11 +94,12 @@ void deleteCD(struct CD cdList[], int *size){
         printf("Khong tim thay CD.\n");
     }
 }
-void sortByDuration(struct CD cdList[], int size){
+
+void sortByDuration(struct CD cdList[], int size) {
     for (int i = 1; i < size; ++i) {
         struct CD key = cdList[i];
         int j = i - 1;
-        while (j >= 0 && cdList[j].duration > key.duration){
+        while (j >= 0 && cdList[j].duration > key.duration) {
             cdList[j + 1] = cdList[j];
             j = j - 1;
         }
@@ -100,25 +108,24 @@ void sortByDuration(struct CD cdList[], int size){
     printf("Danh sach CD sau khi sap xep:\n");
     printCDList(cdList, size);
 }
-int main(){
-    const int MAX_CDS = 100;
+
+int main() {
     struct CD cdList[MAX_CDS];
-    int currentSize = 2;
-    cdList[0] = (struct CD){1, "Sieu nhan", 2.0, "Phim hoat hinh", false};
-    cdList[1] = (struct CD){2, "Cook 2", 3.0, "Huong dan nau an", true};
-    do{
+    int currentSize = 0;
+
+    do {
         printf("*******************MENU*******************\n");
-		printf("1. In toan bo danh sach cd co o trong mang cdList tren cung mot hang.\n");
-		printf("2. Them moi cd vao vi tri cuoi cung cua cdList.\n");
-		printf("3. Cap nhat thong tin cua mot cd.\n");
-		printf("4. Xoa mot cd.\n");
-		printf("5. Sap xep va in ra danh sach cdList theo thu tu tang dan.\n");
-		printf("6. Tim kiem va in ra thong tin cua cd\n");
-		printf("7. Tim kiem va in ra toan bo thong tin cua cac cd theo status.\n");
-		printf("Lua chon cua ban la: ");
+        printf("1. In toan bo danh sach cd co o trong mang cdList tren cung mot hang.\n");
+        printf("2. Them moi cd vao vi tri cuoi cung cua cdList.\n");
+        printf("3. Cap nhat thong tin cua mot cd.\n");
+        printf("4. Xoa mot cd.\n");
+        printf("5. Sap xep va in ra danh sach cdList theo thu tu tang dan.\n");
+        printf("6. Thoat\n");
+        printf("Lua chon cua ban la: ");
         int choice;
         scanf("%d", &choice);
-        switch (choice){
+
+        switch (choice) {
             case 1:
                 printCDList(cdList, currentSize);
                 break;
@@ -135,13 +142,12 @@ int main(){
                 sortByDuration(cdList, currentSize);
                 break;
             case 6:
-                break;
-            case 7:
-    			break;
+                printf("Ket thuc chuong trinh.\n");
+                return 0;
             default:
-                printf("Vui long chon tu 1-7.\n");
+                printf("Vui long chon tu 1-6.\n");
         }
-    }while (1 == 1);
+    } while (1);
+
     return 0;
 }
-
