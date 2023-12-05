@@ -104,8 +104,8 @@ int main(){
     const int MAX_CDS = 100;
     struct CD cdList[MAX_CDS];
     int currentSize = 2;
-    cdList[0] = (struct CD){1, "Kinh di ma quy", 2.0, "Phim giat minh", false};
-    cdList[1] = (struct CD){2, "Phim lang man tinh cam", 3.0, "Phim hon hit", true};
+    cdList[0] = (struct CD){1, "Kinh di ma quy", 7.0, "Phim giat minh", false};
+    cdList[1] = (struct CD){2, "Phim lang man tinh cam", 39.0, "Phim hon hit", true};
     do{
         printf("*******************MENU*******************\n");
 		printf("1. In toan bo danh sach cd co o trong mang cdList tren cung mot hang.\n");
